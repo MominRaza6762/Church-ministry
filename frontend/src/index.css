@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Inter', system-ui, Arial, sans-serif;
+  background-color: #F4EFE4;
+  color: #1A1A1A;
+  min-height: 100vh;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: 'Crimson Text', Georgia, serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #F4EFE4; }
+::-webkit-scrollbar-thumb { background: #d4c9b8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #B8952A; }
+
+/* Shimmer skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #ede8df 25%, #f5f1ea 50%, #ede8df 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+/* React Calendar overrides */
+.react-calendar {
+  width: 100% !important;
+  border: none !important;
+  background: transparent !important;
+  font-family: 'Inter', sans-serif !important;
+}
+.react-calendar__navigation button {
+  color: #5C1A27 !important;
+  font-weight: 600;
+  font-size: 14px;
+}
+.react-calendar__navigation button:hover,
+.react-calendar__navigation button:focus {
+  background-color: #F4EFE4 !important;
+  border-radius: 8px;
+}
+.react-calendar__tile {
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  padding: 8px 4px !important;
+}
+.react-calendar__tile:hover {
+  background-color: #F4EFE4 !important;
+}
+.react-calendar__tile--active {
+  background-color: #5C1A27 !important;
+  color: white !important;
+}
+.react-calendar__tile--now {
+  background-color: rgba(184,149,42,0.15) !important;
+  color: #5C1A27 !important;
+  font-weight: 600;
+}
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none !important;
+  color: #6B6B6B;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Input focus ring */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(184,149,42,0.25);
+}
+
+/* Touch targets */
+button, a, label {
+  -webkit-tap-highlight-color: transparent;
+}
