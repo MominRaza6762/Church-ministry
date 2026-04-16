@@ -12,9 +12,15 @@ export const useLogStore = create((set, get) => ({
 
   setDate: (d) => set({ date: d }),
 
+  // Call this on login/logout to clear any cached log data
+  clearLog: () => {
+    if (debounceTimer) clearTimeout(debounceTimer);
+    set({ date: "", log: null, loading: false, saved: false, error: "" });
+  },
+
   fetchLog: async (date) => {
     const current = get().date;
-    if (current === date && get().log !== null) return; // don't refetch same date
+    if (current === date && get().log !== null) return;
     set({ loading: true, error: "", saved: false, date });
     try {
       const data = await getLogApi(date);

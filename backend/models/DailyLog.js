@@ -6,17 +6,42 @@ const DailyLogSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", index: true, required: true },
     date: { type: String, index: true, required: true }, // YYYY-MM-DD
+
+    // ── Worship (was: liturgy) ──────────────────────────────
     liturgy: { type: Object, default: {} },
+
+    // ── Prayer ─────────────────────────────────────────────
     prayer: { type: Object, default: {} },
     prayerNotes: { type: String, default: "" },
+
+    // ── Sacraments & Occasional Offices ────────────────────
     sacraments: { type: Array, default: [] },
-    pastoralVisits: { type: Array, default: [] },
-    admin: { type: Object, default: {} },
-    teaching: { type: Array, default: [] },
-    dailySchedule: { type: Array, default: [] },
+
+    // ── Pastoral Care & Community ──────────────────────────
+    pastoralVisits:    { type: Array, default: [] }, // Spiritual Direction
+    visitation:        { type: Array, default: [] },
+    pastoralEducation: { type: Array, default: [] },
+    pastoralMeetings:  { type: Array, default: [] },
+    pastoralEvents:    { type: Array, default: [] },
+
+    // ── Administration ─────────────────────────────────────
+    admin: { type: Array, default: [] }, // changed from Object to Array
+
+    // ── Continuing Formation (was: teaching) ───────────────
+    teaching:             { type: Array, default: [] }, // kept for backward compat
+    formationSermon:      { type: Array, default: [] },
+    formationReading:     { type: Array, default: [] },
+    formationVideos:      { type: Array, default: [] },
+    formationRetreats:    { type: Array, default: [] },
+    formationConferences: { type: Array, default: [] },
+    formationResearch:    { type: Array, default: [] },
+
+    // ── Schedule / Additional ──────────────────────────────
+    dailySchedule:  { type: Array, default: [] },
     communications: { type: Array, default: [] },
-    financials: { type: Array, default: [] },
-    reflections: { type: Object, default: {} },
+    financials:     { type: Array, default: [] },
+    reflections:    { type: Object, default: {} },
+
     updatedAt: { type: Date, default: Date.now }
   },
   { versionKey: false }

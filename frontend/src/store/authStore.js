@@ -5,12 +5,14 @@ import API_BASE_URL from "../utils/apiBase.js";
 import axios from "axios";
 
 export const useAuthStore = create((set, get) => {
-  // Register token handlers with http interceptor (no circular import)
   registerAuthHandlers(
     () => get().accessToken,
     (t) => set({ accessToken: t }),
-    // On forced logout (e.g. 401), keep initialized:true so login page shows immediately
-    () => set({ user: null, accessToken: "", initialized: true })
+    () => {
+      // Lazy import to avoid circular dep — clear log cache on forced logout
+      import("./logStore.js").then(m => m.useLogStore.getState().clearLog()).catch(() => {});
+      set({ user: null, accessToken: "", initialized: true });
+    }
   );
 
   return {
@@ -35,6 +37,9 @@ export const useAuthStore = create((set, get) => {
         if (newToken) {
           set({ accessToken: newToken });
           const me = await meApi();
+          // Clear any stale log from previous session before setting new user
+          const { useLogStore } = await import("./logStore.js");
+          useLogStore.getState().clearLog();
           set({ user: me.user, initialized: true });
         } else {
           set({ user: null, accessToken: "", initialized: true });
@@ -48,6 +53,9 @@ export const useAuthStore = create((set, get) => {
       set({ loading: true, error: "" });
       try {
         const data = await loginApi({ email, password });
+        // Clear stale log cache before loading new user's data
+        const { useLogStore } = await import("./logStore.js");
+        useLogStore.getState().clearLog();
         set({
           user: data.user,
           accessToken: data.accessToken,
@@ -64,11 +72,13 @@ export const useAuthStore = create((set, get) => {
 
     logout: async () => {
       try { await logoutApi(); } catch {}
-      // Keep initialized: true so App doesn't show the loading spinner on login page
+      const { useLogStore } = await import("./logStore.js");
+      useLogStore.getState().clearLog();
       set({ user: null, accessToken: "", initialized: true });
     },
 
     clearAuth: () => {
+      import("./logStore.js").then(m => m.useLogStore.getState().clearLog()).catch(() => {});
       set({ user: null, accessToken: "", initialized: true });
     }
   };

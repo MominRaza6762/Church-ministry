@@ -28,14 +28,19 @@ const DashboardPage = () => {
   const { date, log, loading } = useDailyLog(new Date());
   const saved = useLogStore(s => s.saved);
 
+  // Updated tab labels per client:
+  // Liturgy → Worship
+  // Sacraments → Sacraments & Offices
+  // Pastoral → Pastoral Care
+  // Teaching → Cont. Formation
   const tabs = useMemo(() => [
-    { key: "liturgy", label: "✝ Liturgy" },
-    { key: "prayer", label: "♱ Prayer" },
-    { key: "sacraments", label: "✠ Sacraments" },
-    { key: "pastoral", label: "👤 Pastoral" },
-    { key: "admin", label: "📋 Admin" },
-    { key: "teaching", label: "🎤 Teaching" },
-    { key: "extra", label: "📅 Schedule" }
+    { key: "liturgy",    label: "✝ Worship" },
+    { key: "prayer",     label: "♱ Prayer" },
+    { key: "sacraments", label: "✠ Sacraments & Offices" },
+    { key: "pastoral",   label: "👤 Pastoral Care" },
+    { key: "admin",      label: "📋 Admin" },
+    { key: "teaching",   label: "🎓 Cont. Formation" },
+    { key: "extra",      label: "📅 Schedule" }
   ], []);
 
   const [current, setCurrent] = useState("liturgy");
@@ -44,7 +49,7 @@ const DashboardPage = () => {
     <div className="min-h-screen bg-parchment">
       <Header date={date} />
 
-      {/* Auto-save indicator — high z-index, fixed position */}
+      {/* Auto-save indicator */}
       {saved && (
         <div className="fixed top-[60px] right-3 z-[60] animate-slideDown pointer-events-none">
           <div className="bg-success text-white text-xs font-medium px-3 py-1.5 rounded-full shadow-soft flex items-center gap-1.5">
@@ -57,12 +62,12 @@ const DashboardPage = () => {
       )}
 
       <div className="mx-auto max-w-[640px]">
-        {/* StatsBadge — NOT sticky, just normal flow so it doesn't overlap modals */}
+        {/* StatsBadge — normal flow, no z-index */}
         <div className="relative z-0">
           <StatsBadge log={log} />
         </div>
 
-        {/* TabNav sticky — z-index below modals (z-50) */}
+        {/* TabNav sticky — z below modals */}
         <div className="sticky top-14 z-[35]">
           <TabNav tabs={tabs} current={current} onChange={setCurrent} />
         </div>
@@ -75,13 +80,13 @@ const DashboardPage = () => {
             </>
           ) : (
             <>
-              {current === "liturgy" && <LiturgyTab date={date} />}
-              {current === "prayer" && <PrayerTab date={date} />}
+              {current === "liturgy"    && <LiturgyTab date={date} />}
+              {current === "prayer"     && <PrayerTab date={date} />}
               {current === "sacraments" && <SacramentsTab date={date} />}
-              {current === "pastoral" && <PastoralTab date={date} />}
-              {current === "admin" && <AdminTab date={date} />}
-              {current === "teaching" && <TeachingTab date={date} />}
-              {current === "extra" && <AdditionalSections date={date} />}
+              {current === "pastoral"   && <PastoralTab date={date} />}
+              {current === "admin"      && <AdminTab date={date} />}
+              {current === "teaching"   && <TeachingTab date={date} />}
+              {current === "extra"      && <AdditionalSections date={date} />}
             </>
           )}
         </div>
