@@ -15,9 +15,18 @@ const isProd = process.env.NODE_ENV === "production";
 const setRefreshCookie = (res, token) => {
   res.cookie("rt", token, {
     httpOnly: true,
-    secure: isProd,
-    sameSite: "lax",
+    secure: true,                          // always secure (required for sameSite none)
+    sameSite: isProd ? "none" : "lax",     // "none" for cross-domain in production
     maxAge: 7 * 24 * 60 * 60 * 1000,
+    path: "/"
+  });
+};
+
+const clearRefreshCookie = (res) => {
+  res.clearCookie("rt", {
+    httpOnly: true,
+    secure: true,
+    sameSite: isProd ? "none" : "lax",
     path: "/"
   });
 };
@@ -61,7 +70,7 @@ export const refresh = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     await logoutService(req.user?._id);
-    res.clearCookie("rt", { httpOnly: true, secure: isProd, sameSite: "lax", path: "/" });
+    clearRefreshCookie(res);
     res.json({ success: true });
   } catch (e) {
     res.status(500).json({ error: "Logout failed" });

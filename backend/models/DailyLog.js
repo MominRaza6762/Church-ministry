@@ -1,34 +1,34 @@
-import dotenv from "dotenv";
-dotenv.config({ path: "./config/config.env" });
 import mongoose from "mongoose";
 
 const DailyLogSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", index: true, required: true },
-    date: { type: String, index: true, required: true }, // YYYY-MM-DD
+    date: { type: String, index: true, required: true },
 
-    // ── Worship (was: liturgy) ──────────────────────────────
+    // Worship
     liturgy: { type: Object, default: {} },
 
-    // ── Prayer ─────────────────────────────────────────────
+    // Prayer
     prayer: { type: Object, default: {} },
     prayerNotes: { type: String, default: "" },
+    prayerRequestsHealth:   { type: Array, default: [] },
+    prayerRequestsDeparted: { type: Array, default: [] },
 
-    // ── Sacraments & Occasional Offices ────────────────────
+    // Sacraments & Occasional Offices
     sacraments: { type: Array, default: [] },
 
-    // ── Pastoral Care & Community ──────────────────────────
-    pastoralVisits:    { type: Array, default: [] }, // Spiritual Direction
+    // Pastoral Care
+    pastoralVisits:    { type: Array, default: [] },
     visitation:        { type: Array, default: [] },
     pastoralEducation: { type: Array, default: [] },
     pastoralMeetings:  { type: Array, default: [] },
     pastoralEvents:    { type: Array, default: [] },
 
-    // ── Administration ─────────────────────────────────────
-    admin: { type: Array, default: [] }, // changed from Object to Array
+    // Administration
+    admin: { type: Array, default: [] },
 
-    // ── Continuing Formation (was: teaching) ───────────────
-    teaching:             { type: Array, default: [] }, // kept for backward compat
+    // Continuing Formation
+    teaching:             { type: Array, default: [] },
     formationSermon:      { type: Array, default: [] },
     formationReading:     { type: Array, default: [] },
     formationVideos:      { type: Array, default: [] },
@@ -36,9 +36,10 @@ const DailyLogSchema = new mongoose.Schema(
     formationConferences: { type: Array, default: [] },
     formationResearch:    { type: Array, default: [] },
 
-    // ── Schedule / Additional ──────────────────────────────
+    // Schedule / Additional
     dailySchedule:  { type: Array, default: [] },
     communications: { type: Array, default: [] },
+    taxExpenses:    { type: Object, default: {} },   // Tax & Ministry Expense Tracker
     financials:     { type: Array, default: [] },
     reflections:    { type: Object, default: {} },
 
