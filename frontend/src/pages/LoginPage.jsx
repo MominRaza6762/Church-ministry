@@ -63,10 +63,13 @@ const LoginPage = () => {
               />
               <span className="text-gold text-2xl hidden">✝</span>
             </div>
+            {/* Change 2: updated sub-name */}
             <div className="text-gold font-serif tracking-[0.2em] uppercase text-sm font-semibold">
               Ministry Companion
             </div>
-            <div className="text-ivory/70 text-xs mt-1">✝ Daily Office Journal ✝</div>
+            <div className="text-ivory/70 text-xs mt-1">
+              +Daily Office Journal for Orthodox Christian Clergy+
+            </div>
           </div>
 
           {/* Form */}
@@ -154,11 +157,12 @@ const LoginPage = () => {
             </div>
           </div>
 
-          {/* Footer quote */}
+          {/* Change 1: Footer quote with Matt. 18:20 citation */}
           <div className="bg-parchment/60 px-6 py-3 border-t border-parchment-dark/30 text-center">
             <p className="text-texts text-xs italic">
               "For where two or three are gathered in my name, there am I in the midst of them."
             </p>
+            <p className="text-texts/60 text-xs mt-0.5 not-italic font-medium">— Matt. 18:20</p>
           </div>
         </div>
       </div>
