@@ -19,15 +19,21 @@ const AppInner = () => {
 
   if (!initialized) {
     return (
-      <div className="min-h-screen bg-parchment flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-burgundy flex items-center justify-center animate-pulse">
-            <span className="text-gold text-2xl">✝</span>
-          </div>
-          <div className="text-texts text-sm animate-pulse">Loading Ministry Companion...</div>
-        </div>
+  <div className="min-h-screen bg-parchment flex items-center justify-center">
+    <div className="text-center">
+      <div className="w-12 h-12 mx-auto mb-3 rounded-full bg-burgundy flex items-center justify-center animate-pulse">
+        <img
+          src="/cross_transparent.png"
+          alt="Cross"
+          className="w-10 h-10 object-contain"
+        />
       </div>
-    );
+      <div className="text-texts text-sm animate-pulse">
+        Loading Ministry Companion...
+      </div>
+    </div>
+  </div>
+);
   }
 
   return (

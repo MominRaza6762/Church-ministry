@@ -56,9 +56,9 @@ const LoginPage = () => {
           <div className="bg-burgundy px-6 py-6 text-center">
             <div className="w-14 h-14 mx-auto mb-3 rounded-full bg-burgundy-dark/60 border-2 border-gold/40 flex items-center justify-center shadow-lg">
               <img
-                src="https://res.cloudinary.com/proxmaircloud/image/upload/v1775580188/images/zlrd9m2fgrbmjmxuhzef.png"
+                src="/cross_transparent.png"
                 alt="Cross"
-                className="w-8 h-8 object-contain"
+                className="w-12 h-12 object-contain"
                 onError={(e) => { e.target.style.display = "none"; e.target.nextSibling.style.display = "block"; }}
               />
               <span className="text-gold text-2xl hidden">✝</span>
